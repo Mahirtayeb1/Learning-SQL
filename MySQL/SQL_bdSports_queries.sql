@@ -314,9 +314,100 @@ where name = 'jubair'
 
 -- Q14: Who scored the most hundreds?
 
+Select Distinct name, TOTAL_RUN
+from bd_sports.list_bd
+
+# Update & Delete 
+
+INSERT INTO bd_sports.list_bd
+(ID_number, name, Age, country, FORMET, HS, TOTAL_RUN, PLAYER_TYPE, fifty, hundred, wiket, `5wik`, HRank)
+VALUES
+(75, 'Tayeb', 24, 'BD', 'T20', 198, 136464, 'batsman', 140, 85, 135, 6, 1);
+
+Select * from bd_sports.list_bd
+where name = 'tayeb';
+
+SET SQL_SAFE_UPDATES = 0;
+update bd_sports.list_bd
+set ID_number = 199
+where name = 'tayeb'
+
+Delete from bd_sports.list_bd
+where name = "tayeb";
 
 
+# Find how many bowlers are there
+Select Count(Distinct ID_number) as Total_Bowler
+from bd_sports.list_bd
+where PLAYER_TYPE in ("Bowler")
 
+# finding bowlers less than 30 years old having more than 100 wickets
+select * 
+from bd_sports.list_bd
+where wiket > 100 and PLAYER_TYPE in ("bowler") and age < 30
+
+# find formate wise avarage age 
+select avg(Age) as Avg_age, FORMET, PLAYER_TYPE
+from bd_sports.list_bd
+group by FORMET, PLAYER_TYPE
+# after using aggregator we can't get other column, to see others, need
+  to use "group by"
+-- select avg(Age) as Avg_age
+-- from bd_sports.list_bd
+ 
+# top 5 highest score
+select name, HS
+from bd_sports.list_bd
+order by HS desc
+limit 5
+
+#Find allrounder with 50- wiks
+select *
+from bd_sports.list_bd
+where PLAYER_TYPE in ("Allrounder", "bowler") 
+and wiket < 50
+
+select max(hundred) as max_hundreds
+from bd_sports.list_bd
+-- order by hundred desc
+
+
+SELECT 
+    formet, MAX(hs) AS highest_score
+FROM
+    bd_sports.list_bd
+WHERE
+    PLaYER_Type = 'allrounder'
+GROUP BY formet
+
+# Like aggregator
+
+Select * from bd_sports.list_bd
+where name like "%s";         # Ends with
+ 
+Select * from bd_sports.list_bd
+where name like "%s%";      # Middle
+ 
+Select * from bd_sports.list_bd
+where name like "s%";         # Starts with
+
+ Select * from bd_sports.list_bd
+ where name like "s%" and name like '%b';
+ 
+Select * from bd_sports.list_bd
+where name like "s%" or name like '%m';
+
+ Select * from bd_sports.list_bd
+ where name like "s___b";
+
+# IN
+Select * from bd_sports.list_bd
+where formet in ("t20","odi")
+
+# between
+# used for date related thing like show march to july sales
+select * from bd_sports.list_bd
+where total_run between 1000 and 2000 
 
 # Rank
 # ranking all the players using their HS
